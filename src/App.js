@@ -62,7 +62,6 @@ class App extends Component {
 
     selectedBook.shelf = newShelf;
 
-    //optimistic updates for better user experience
     if (newShelf !== 'none' && existingShelf !== 'none') {
       this.setState((prevState) => ({
         [existingShelf]: currentShelfBooksUpdated,
@@ -84,9 +83,6 @@ class App extends Component {
       })
       .catch((err) => {
         console.log("Error while updating shelf", err)
-
-        //  In case of failure response from server following will revert
-        //  to prev state because was optimistic updates        
 
         let currentShelfBooksUpdated = (newShelf !== 'none')
           ? this.state[newShelf].filter((rec) => rec.id !== selectedBook.id)
